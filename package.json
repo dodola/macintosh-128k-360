@@ -1,0 +1,12 @@
+{
+  "name": "macintosh-128k-exhibit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild main.js --bundle --minify --legal-comments=inline --target=es2022 --loader:.webp=dataurl --loader:.txt=text --outfile=dist/app.js"
+  },
+  "dependencies": {
+    "esbuild": "0.25.12",
+    "three": "0.180.0"
+  }
+}

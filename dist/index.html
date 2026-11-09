@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="第一代 Macintosh 128K 的 360° 交互机身复原。">
+  <meta name="theme-color" content="#eee9dc">
+  <title>Macintosh 128K · 360° 机身档案</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2325352f'/%3E%3Crect x='8' y='5' width='16' height='22' rx='2' fill='%23e8d8b7'/%3E%3Crect x='11' y='8' width='10' height='9' rx='1.5' fill='%2325352f'/%3E%3Cpath d='M17 22h4' stroke='%2325352f'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <div class="brand">
+        <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#25352f"/><rect x="8" y="5" width="16" height="22" rx="2" fill="#e8d8b7"/><rect x="11" y="8" width="10" height="9" rx="1.5" fill="#25352f"/><path d="M17 22h4" stroke="#25352f"/><circle cx="12" cy="22" r="1" fill="#ad4636"/></svg>
+        <span>机身档案 <b>03</b></span>
+      </div>
+      <span class="edition">OBJECT STUDIES <span>/</span> 1984</span>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <p class="kicker">APPLE COMPUTER INC. <span>·</span> 1984</p>
+          <h1>Macintosh <span>128K</span></h1>
+        </div>
+        <p class="lead">第一代 Macintosh 的 360° 机身复原。拖动查看四面，转到背面可以放大看接口和铭牌。</p>
+      </div>
+
+      <div class="gallery">
+        <section class="viewer" aria-label="Macintosh 128K 环绕展台">
+          <div class="stage" id="stage">
+            <canvas id="artifact" tabindex="0" aria-label="Macintosh 128K 三维机身" aria-describedby="orbit-help" hidden></canvas>
+            <div class="plate" aria-hidden="true"><span></span> M0001</div>
+            <span class="mode-label" id="mode-label">高斯 splat 复原</span>
+            <div id="stage-status" class="stage-status" role="status">正在载入机身…</div>
+            <img id="fallback" class="fallback" alt="" hidden>
+            <p id="orbit-help" class="sr-only">拖动或按方向键旋转和俯仰，按 Home 回到正面。</p>
+            <span class="stage-hint" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 13-6l2 2m0-4v4h-4m5 4A8 8 0 0 1 7 18l-2-2m0 4v-4h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              拖动旋转
+            </span>
+            <div class="zoom" id="zoom" role="group" aria-label="缩放机身">
+              <button type="button" data-zoom="-1" aria-label="缩小机身" disabled>−</button>
+              <button type="button" data-zoom="1" aria-label="放大机身" disabled>+</button>
+            </div>
+          </div>
+          <div class="orbital-controls">
+            <div class="presets" id="presets" role="group" aria-label="机身视角">
+              <button type="button" data-angle="0" aria-pressed="true" disabled>正面</button>
+              <button type="button" data-angle="90" aria-pressed="false" disabled>右侧</button>
+              <button type="button" data-angle="180" aria-pressed="false" disabled>背面</button>
+              <button type="button" data-angle="270" aria-pressed="false" disabled>左侧</button>
+            </div>
+            <div class="angle-control">
+              <label class="sr-only" for="angle">水平旋转角度</label>
+              <input type="range" id="angle" min="0" max="360" value="22" step="1" disabled>
+              <output id="angle-value" for="angle">022°</output>
+            </div>
+          </div>
+        </section>
+
+        <aside class="catalogue" aria-labelledby="catalogue-title">
+          <div class="record">
+            <span class="record-label">机型档案</span><span class="record-code">M0001 / 1984</span>
+          </div>
+          <h2 id="catalogue-title">第一代 Macintosh</h2>
+          <dl class="specs">
+            <div><dt>内存</dt><dd>128 KB</dd></div>
+            <div><dt>显示器</dt><dd>9 英寸单色 CRT</dd></div>
+            <div><dt>软驱</dt><dd>3.5 英寸 · 400 KB</dd></div>
+          </dl>
+          <div class="rear-note">
+            <p class="record-label">背面细节</p>
+            <p>接口集中在机身下缘，包括鼠标、外接软驱、两个串口和音频输出。右侧是电源开关与插座。</p>
+            <button type="button" id="inspect" disabled>
+              <span id="inspect-label">放大背面</span>
+              <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="footnote">
+        <p>外观由 GPT Image 生成，接口布局参照早期 M0001。机身材质和铭牌为复原。</p>
+        <details class="credits">
+          <summary>素材与提示词</summary>
+          <div id="prompts" class="prompts"></div>
+        </details>
+      </footer>
+      <noscript><p>开启 JavaScript 后即可操作展台。</p></noscript>
+    </main>
+  </div>
+</body>
+</html>
